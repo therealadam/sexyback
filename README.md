@@ -22,6 +22,24 @@ gives you a library of nifty data structures that you can work with in
 Cassandra. Most of them guarantee atomic operations; others require a lock and
 multiple writes to do their nifty thing.
 
+## Show me what you got
+
+It's a bit rough at this point, but here's a hash that is stored into
+a Cassandra row.
+
+    Sexyback::Hash.connection = Cassandra.new('SomeKeyspace')
+    Sexyback::Hash.column_family = :Hash
+
+    hsh = Sexyback::Hash.new
+    hsh.row_key = 'example'
+    hsh.set('alice', 'bob')
+    hsh.set('bob', 'charlie')
+    hsh.set('charlie', 'alice')
+    hsh.get_all # => {'alice' => 'bob', 'bob' => 'charlie', 'charlie' => 'alice'} 
+
+The bits where `connection` and `column_family` are global are obviously crap,
+but hopefully the other bits are interesting.
+
 ---
 
 Everything above this line is hot air and everything below this line is
@@ -46,10 +64,10 @@ TODO: copy everything from redback
 
 ## The data model
 
-* How to set the keyspace and column family in use
-* When to use a different column family
-* How to configure sexyback for your app
-* Example usage of the simple data structure
+* How to set the keyspace and column family in use?
+* When to use a different column family?
+* How to configure sexyback for your app?
+* Example usage of the simple data structure?
 
 ## License
 
