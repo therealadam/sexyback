@@ -63,6 +63,15 @@ module Sexyback
     end
     alias :get_all :to_hash
 
+    def keys
+      connection.get(cf, row_key).keys
+    end
+
+    def values
+      connection.get(cf, row_key).values
+    end
+
+    # TODO: hincrby, hsetnx, hmset, hmget
   end
 
 end

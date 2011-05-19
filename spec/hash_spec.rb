@@ -85,15 +85,24 @@ describe Sexyback::Hash do
 
   end
 
-  def schema
-    {
-      'Sexyback' => {
-        'Hash' => {
-          'comparator_type' => 'org.apache.cassandra.db.marshal.UTF8Type',
-          'column_type' => 'Standard'
-        }
-      }
-    }
+  context "#keys" do
+
+    it 'fetches all keys from the row' do
+      subject['alice'] = 'alice'
+      subject['bob'] = 'bob'
+      subject.keys.should eq(['alice', 'bob'])
+    end
+
+  end
+
+  context "#values" do
+
+    it 'fetches all values from the row' do
+      subject['alice'] = 'alice'
+      subject['bob'] = 'bob'
+      subject.values.should eq(['alice', 'bob'])
+    end
+
   end
 
 end
