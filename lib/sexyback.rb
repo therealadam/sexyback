@@ -1,13 +1,25 @@
-require 'active_support/core_ext/module'
+require 'active_support/core_ext/class'
+require 'active_support/concern'
+
 require 'simple_uuid'
 require 'cassandra'
 
 module Sexyback
 
-  mattr_accessor :connection
-  mattr_accessor :column_family
+  module Connection
+    extend ActiveSupport::Concern
+
+    included do
+      cattr_accessor :connection
+      cattr_accessor :column_family
+
+      alias :cf :column_family
+    end
+
+  end
 
   class Hash
+    include Sexyback::Connection
 
     attr_accessor :row_key
 
@@ -43,16 +55,9 @@ module Sexyback
       connection.remove(cf, row_key, key)
     end
 
+    # PRINCIPLE what Hash method does this line up with?
     def get_all
       connection.get(cf, row_key)
-    end
-
-    def connection
-      Sexyback.connection # HAX
-    end
-
-    def cf
-      Sexyback.column_family # HAX
     end
 
   end

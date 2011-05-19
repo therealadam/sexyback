@@ -3,8 +3,8 @@ require 'cassandra/mock'
 
 describe Sexyback::Hash do
 
-  before { Sexyback.connection = Cassandra::Mock.new('Sexyback', schema) }
-  before { Sexyback.column_family = :Hash }
+  before { Sexyback::Hash.connection = Cassandra::Mock.new('Sexyback', schema) }
+  before { Sexyback::Hash.column_family = :Hash }
   before { subject.row_key = 'people' }
 
   context ".from_hash" do
