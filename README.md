@@ -49,16 +49,16 @@ ambition. Don't judge me.
 
 Atomic types:
 
-- Append-only list
 - Hash
-- Set
-- Lock
-- Scoreboard
+- Set (TODO)
+- Append-only list (TODO)
+- Lock (TODO)
+- Scoreboard (TODO)
 
 Non-atomic, but still awesome:
 
-- Sorted set
-- Single-entry list
+- Sorted set (TODO)
+- Single-entry list (TODO)
 
 TODO: copy everything from redback
 
