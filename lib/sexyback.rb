@@ -34,6 +34,19 @@ module Sexyback
       @value[key] = value
     end
 
+    # PRINCIPLE does Sexyback model Redis data types or Ruby duck types?
+    def has_key?(key)
+      connection.exists?(cf, row_key, key)
+    end
+
+    def delete(key)
+      connection.remove(cf, row_key, key)
+    end
+
+    def get_all
+      connection.get(cf, row_key)
+    end
+
     def connection
       Sexyback.connection # HAX
     end
