@@ -105,4 +105,22 @@ describe Sexyback::Hash do
 
   end
 
+  context "#mset" do
+
+    it 'updates multiple keys in one operation' do
+      subject.mset('alice', 'alice', 'bob', 'bob')
+      subject.connection.get_columns(:Hash, 'people', ['alice', 'bob']).should eq(['alice', 'bob'])
+    end
+
+  end
+
+  context "#mget" do
+
+    it 'fetches multiple keys in one operation' do
+      subject.mset('alice', 'alice', 'bob', 'bob')
+      subject.mget('alice', 'bob').should eq(['alice', 'bob'])
+    end
+
+  end
+
 end

@@ -6,6 +6,7 @@ require 'cassandra'
 
 module Sexyback
 
+  # FIXME: global data here, bleh
   module Connection
     extend ActiveSupport::Concern
 
@@ -71,7 +72,16 @@ module Sexyback
       connection.get(cf, row_key).values
     end
 
-    # TODO: hincrby, hsetnx, hmset, hmget
+    def mset(*pairs)
+      columns = ::Hash[*pairs]
+      connection.insert(cf, row_key, columns)
+    end
+
+    def mget(*keys)
+      connection.get_columns(cf, row_key, keys)
+    end
+
+    # TODO: hincrby, hsetnx
   end
 
 end
