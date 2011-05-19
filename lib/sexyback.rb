@@ -36,15 +36,17 @@ module Sexyback
       end
     end
 
-    def []=(key, value)
+    def set(key, value)
       connection.insert(cf, row_key, {key => value})
       @value[key] = value
     end
+    alias :[]= :set
 
-    def [](key)
+    def get(key)
       value = connection.get_columns(cf, row_key, key).first
       @value[key] = value
     end
+    alias :[] :get
 
     # PRINCIPLE does Sexyback model Redis data types or Ruby duck types?
     def has_key?(key)

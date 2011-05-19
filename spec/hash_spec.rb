@@ -19,18 +19,18 @@ describe Sexyback::Hash do
 
   end
 
-  context "#[] and #[]=" do
+  context "get and set" do
 
     before { subject.row_key = 'people' }
 
     it 'add or update a key in the hash' do
-      subject["alice"] = 'alice' 
-      subject['alice'].should eq('alice')
+      subject.set("alice", 'alice')
+      subject.get('alice').should eq('alice')
     end
 
     it 'add or update a column' do
       subject.connection.insert(:Hash, 'people', {'wonk' => 'wonk'})
-      subject['wonk'].should eq('wonk')
+      subject.get('wonk').should eq('wonk')
     end
 
   end
