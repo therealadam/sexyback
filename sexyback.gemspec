@@ -6,11 +6,11 @@ Gem::Specification.new do |s|
   s.name        = "sexyback"
   s.version     = Sexyback::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["TODO: Write your name"]
-  s.email       = ["TODO: Write your email address"]
+  s.authors     = ["Adam Keys"]
+  s.email       = ["adam@therealadam.com"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{Use handy data structures with Cassandra.}
+  s.description = %q{Sexyback gives you usable data structures that use Cassandra for storage.}
 
   s.rubyforge_project = "sexyback"
 
@@ -18,4 +18,7 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
+
+  s.add_dependency 'activesupport', '~> 3.0.0'
+  s.add_dependency 'cassandra', '~> 0.10.0'
 end
