@@ -22,6 +22,11 @@ gives you a library of nifty data structures that you can work with in
 Cassandra. Most of them guarantee atomic operations; others require a lock and
 multiple writes to do their nifty thing.
 
+---
+
+Everything above this line is hot air and everything below this line is
+ambition. Don't judge me.
+
 ## The sexy
 
 Atomic types:
