@@ -48,19 +48,20 @@ module Sexyback
     end
     alias :[] :get
 
-    # PRINCIPLE does Sexyback model Redis data types or Ruby duck types?
     def has_key?(key)
       connection.exists?(cf, row_key, key)
     end
+    alias :exists :has_key?
 
     def delete(key)
       connection.remove(cf, row_key, key)
     end
+    alias :del :delete
 
-    # PRINCIPLE what Hash method does this line up with?
-    def get_all
+    def to_hash
       connection.get(cf, row_key)
     end
+    alias :get_all :to_hash
 
   end
 
