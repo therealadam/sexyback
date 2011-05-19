@@ -50,7 +50,7 @@ ambition. Don't judge me.
 Atomic types:
 
 - Hash
-- Set (TODO)
+- Set
 - Append-only list (TODO)
 - Lock (TODO)
 - Scoreboard (TODO)
@@ -61,6 +61,7 @@ Non-atomic, but still awesome:
 - Single-entry list (TODO)
 
 TODO: copy everything from redback
+TODO: Redis duck-type compatible driver-esque object
 
 ## The data model
 
