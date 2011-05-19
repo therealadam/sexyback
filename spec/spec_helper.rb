@@ -9,6 +9,10 @@ RSpec.configure do
         'Hash' => {
           'comparator_type' => 'org.apache.cassandra.db.marshal.UTF8Type',
           'column_type' => 'Standard'
+        },
+        'Set' => {
+          'comparator_type' => 'org.apache.cassandra.db.marshal.UTF8Type',
+          'column_type' => 'Standard'
         }
       }
     }

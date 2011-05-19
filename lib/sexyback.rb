@@ -4,6 +4,8 @@ require 'cassandra'
 module Sexyback
 
   autoload :Connection, 'sexyback/connection'
+
   autoload :Hash, 'sexyback/hash'
+  autoload :Set, 'sexyback/set'
 
 end
