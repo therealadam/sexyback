@@ -8,5 +8,5 @@ group :dependency do
 end
 
 group :test do
-  gem 'rspec', '~> 2.5.0'
+  gem 'rspec', '~> 2.6.0'
 end

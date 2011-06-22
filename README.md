@@ -35,7 +35,7 @@ a Cassandra row.
     hsh.set('alice', 'bob')
     hsh.set('bob', 'charlie')
     hsh.set('charlie', 'alice')
-    hsh.get_all # => {'alice' => 'bob', 'bob' => 'charlie', 'charlie' => 'alice'} 
+    hsh.get_all # => {'alice' => 'bob', 'bob' => 'charlie', 'charlie' => 'alice'}
 
 The bits where `connection` and `column_family` are global are obviously crap,
 but hopefully the other bits are interesting.
@@ -62,6 +62,30 @@ Non-atomic, but still awesome:
 
 TODO: copy everything from redback
 TODO: Redis duck-type compatible driver-esque object
+
+## Operations, atomicity, and locking
+
+Sexyback attempts to implement all of the awesome commands that Redis does.
+However, some of these commands cannot be implemented on top of Cassandra
+consistently giving its atomicity guarantees. Hopefully, there is a happy fuzzy
+middle-ground.
+
+The base type for each data structure implements the operations that only
+require Cassandra's atomicity guarantees. Each base type has a subclass that
+implements the other operations using extra locks or data structures that are
+also stored in Cassandra.
+
+Sexyback locks on a per-object basis; essentially, each row in a column family
+can be locked. The lock is based on PID and thread ID. Additionally, each lock
+is stored with a TTL so that dead processes don't deadlock a resource. Make
+sure you set the TTL high enough for long running processes to maintain the
+lock, or touch the lock during processing.
+
+On locking:
+
+http://wiki.apache.org/cassandra/Locking?highlight=%28ttl%29
+http://en.wikipedia.org/wiki/Lamport%27s_bakery_algorithm
+http://nob.cs.ucdavis.edu/classes/ecs150-1999-02/sync-bakery.html
 
 ## The data model
 

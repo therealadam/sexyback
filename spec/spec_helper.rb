@@ -13,6 +13,10 @@ RSpec.configure do
         'Set' => {
           'comparator_type' => 'org.apache.cassandra.db.marshal.UTF8Type',
           'column_type' => 'Standard'
+        },
+        'Lock' => {
+          'comparator_type' => 'org.apache.cassandra.db.marshal.UTF8Type',
+          'column_type' => 'Standard'
         }
       }
     }
