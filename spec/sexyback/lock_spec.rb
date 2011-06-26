@@ -3,9 +3,6 @@ require 'spec_helper'
 describe Sexyback::Lock do
 
   before do
-    # TODO: figure out how to set up the database config differently if @db is
-    # true
-    Sexyback::Lock.connection = Cassandra::Mock.new('Sexyback', schema)
     Sexyback::Lock.column_family = :Lock
   end
   let(:connection) { subject.connection }

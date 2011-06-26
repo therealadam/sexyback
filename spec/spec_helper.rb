@@ -1,7 +1,16 @@
 require 'sexyback'
 require 'cassandra/mock'
 
-RSpec.configure do
+RSpec.configure do |config|
+
+  config.before(:each, :db => true) do
+    Sexyback::Lock.connection = Cassandra.new('Sexyback')
+  end
+
+  config.before(:each) do
+    next unless Sexyback::Lock.connection.nil?
+    Sexyback::Lock.connection = Cassandra::Mock.new('Sexyback', schema)
+  end
 
   def schema
     {
