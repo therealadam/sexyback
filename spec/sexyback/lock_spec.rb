@@ -4,6 +4,7 @@ describe Sexyback::Lock do
 
   before do
     Sexyback::Lock.column_family = :Lock
+    Sexyback::Lock.connection.remove(:Lock, 'hash:people') # DRY move the key to a let
   end
   let(:connection) { subject.connection }
 
@@ -27,14 +28,14 @@ describe Sexyback::Lock do
 
       subject.lock('hash:people')
       lock_value = connection.get(:Lock, 'hash:people')
-      lock_value.timestamps[subject.token].should eq(expire_at)
+      lock_value.timestamps[subject.token].should be > expire_at
     end
 
     it 'touches the lock if the lock is already owned by this process', :db => true do
       subject.lock('hash:people')
       expires = connection.get(:Lock, 'hash:people').timestamps[subject.token]
       subject.lock('hash:people')
-      connection.get(:Lock, 'hash:people').timestamps[subject.token].should be_greater_than(expires)
+      connection.get(:Lock, 'hash:people').timestamps[subject.token].should be > expires
     end
 
     it 'raises an exception if the lock is already set' do
@@ -59,10 +60,9 @@ describe Sexyback::Lock do
     it 'updates the TTL on the lock', :db => true do
       subject.lock('hash:people')
       lock_value = connection.get(:Lock, 'hash:people')
-      expires_at = lock_value.timestamps[subject.token] + Sexyback::Lock::DEFAULT_TTL
       subject.touch('hash:people')
       new_value = connection.get(:Lock, 'hash:people')
-      new_value.timestamps[subject.token].should eq(expires_at)
+      new_value.timestamps[subject.token].should be > lock_value.timestamps[subject.token]
     end
 
     it 'raises an exception if another process owns the lock' do

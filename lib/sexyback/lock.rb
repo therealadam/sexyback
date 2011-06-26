@@ -21,7 +21,9 @@ class Sexyback::Lock
   end
 
   def acquire_lock(object_key)
-    connection.insert(cf, object_key, {token => ''})
+    lock_value = Cassandra::OrderedHash.new
+    lock_value.[]=(token, '', (Time.now + DEFAULT_TTL).to_i)
+    connection.insert(cf, object_key, lock_value)
   end
 
   def check_lock(object_key)
@@ -39,7 +41,8 @@ class Sexyback::Lock
   def touch(object_key)
     lock_value = connection.get(cf, object_key)
     raise Sexyback::LockAlreadyTaken.new unless lock_value == {token => ''}
-    lock_value.timestamps[token] = Time.now.to_i + DEFAULT_TTL
+    lock_value.[]=(token, '', Time.now.to_i + DEFAULT_TTL)
+    connection.insert(cf, object_key, lock_value)
   end
 
   def release(object_key)
