@@ -51,14 +51,10 @@ Atomic types:
 
 - Hash
 - Set
+- Sorted Set (TODO)
 - Append-only list (TODO)
 - Lock (TODO)
 - Scoreboard (TODO)
-
-Non-atomic, but still awesome:
-
-- Sorted set (TODO)
-- Single-entry list (TODO)
 
 TODO: copy everything from redback
 TODO: Redis duck-type compatible driver-esque object
